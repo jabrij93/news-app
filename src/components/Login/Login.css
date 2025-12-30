@@ -15,7 +15,7 @@ body {
 .login-page {
   min-height: 100vh;
   width: 100%;
-  background-image: url("your-background-image.jpg"); /* replace with your image path */
+  background-image: url("/public/nature-bg.jpg"); /* replace with your image path */
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat; /* [web:10] */
