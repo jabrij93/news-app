@@ -10,6 +10,7 @@ import {
   LinearProgress,
   Typography,
 } from "@mui/material";
+import { useNavigate, Navigate } from "react-router-dom";
 
 const Login = () => {
   const [username, setUsername] = useState("");
@@ -34,28 +35,25 @@ const Login = () => {
     setSnackbar((prev) => ({ ...prev, open: false }));
   };
 
+  const navigate = useNavigate();
+
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);  // ← Add loading
 
-    if (!username || !password) {
-      setSnackbar({
-        open: true,
-        severity: "error",
-        message: "Please enter username and password.",
-      });
-      return;
-    }
-
-    setLoading(true);
-    // simulate async login
     setTimeout(() => {
       setLoading(false);
-      setSnackbar({
-        open: true,
-        severity: "success",
-        message: "Logged in successfully!",
-      });
-    }, 2000);
+      if (username === "admin" && password === "password") {
+        navigate('/home');  // Clean navigation
+      } else {
+        setSnackbar({
+          open: true,
+          severity: "error",
+          message: "Invalid username or password.",
+        });
+      }
+    }, 1000);
   };
 
   return (
