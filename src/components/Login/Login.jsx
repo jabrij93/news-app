@@ -15,10 +15,11 @@ import { useNavigate, Navigate } from "react-router-dom";
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
   const [loading, setLoading] = useState(false);
   const [snackbar, setSnackbar] = useState({
     open: false,
-    severity: "success",
+    severity: "error",
     message: "",
   });
 
@@ -44,17 +45,15 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);  // ← Add loading
+    setErrorMessage(""); 
 
     setTimeout(() => {
       setLoading(false);
       if (isLoggedIn()) { 
         navigate('/home');
       } else {
-        setSnackbar({
-          open: true,
-          severity: "error",
-          message: "Invalid username or password.",
-        });
+        const error = "Invalid username or password.";
+        setErrorMessage(error);
       }
     }, 1000);
   };
@@ -114,6 +113,19 @@ const Login = () => {
               justifyContent: "center", 
             }}
           >
+          {errorMessage && (
+          <Alert 
+            severity="error" 
+            sx={{ 
+              width: "100%", 
+              maxWidth: "320px", 
+              mb: 2,
+              alignSelf: "center"  // Centers in your flex layout
+            }}
+          >
+            {errorMessage}
+          </Alert>
+        )}
             <TextField
               fullWidth
               label="User Name"
