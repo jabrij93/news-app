@@ -12,7 +12,8 @@ import {
 } from "@mui/material";
 
 const Login = () => {
-  const [values, setValues] = useState({ username: "", password: "" });
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [snackbar, setSnackbar] = useState({
     open: false,
@@ -20,9 +21,12 @@ const Login = () => {
     message: "",
   });
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setValues((prev) => ({ ...prev, [name]: value }));
+  const handleUsername = (e) => {
+    setUsername(e.target.value)
+  };
+
+  const handlePassword = (e) => {
+    setPassword(e.target.value)
   };
 
   const handleCloseSnackbar = (_, reason) => {
@@ -33,7 +37,7 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!values.username || !values.password) {
+    if (!username || !password) {
       setSnackbar({
         open: true,
         severity: "error",
@@ -98,19 +102,23 @@ const Login = () => {
             sx={{
               bgcolor: "rgba(255,255,255,0.85)",
               borderRadius: 2,
-              p: 4,
+              p: 5,
               boxShadow: 4,
               display: "flex",
               flexDirection: "column",
-              gap: 2.5,
+              gap: 5,
+              minHeight: "340px",                  // Minimum height for more space
+              minWidth: "400px", 
+              alignItems: "center",
+              justifyContent: "center", 
             }}
           >
             <TextField
               fullWidth
               label="User Name"
               name="username"
-              value={values.username}
-              onChange={handleChange}
+              value={username}
+              onChange={handleUsername}
               variant="outlined"
               required
             />
@@ -119,8 +127,8 @@ const Login = () => {
               label="Password"
               type="password"
               name="password"
-              value={values.password}
-              onChange={handleChange}
+              value={password}
+              onChange={handlePassword}
               variant="outlined"
               required
             />
