@@ -37,6 +37,9 @@ const Login = () => {
 
   const navigate = useNavigate();
 
+  const isLoggedIn = () => {
+    return username === "admin" && password === "password";  // ← Return boolean
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -44,8 +47,8 @@ const Login = () => {
 
     setTimeout(() => {
       setLoading(false);
-      if (username === "admin" && password === "password") {
-        navigate('/home');  // Clean navigation
+      if (isLoggedIn()) { 
+        navigate('/home');
       } else {
         setSnackbar({
           open: true,
