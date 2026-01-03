@@ -14,34 +14,36 @@ const Home = () => {
     const handleLogout = () => {
     };
 
-    return (
-        <Grid container className="home-container" direction={"column"}>
-            <Grid className="header-container" item xs={12} sx={{ height: "10vh" }}>
-                <Header
-                    keyword={keyword}
-                    onKeywordChange={setKeyword}
-                    onSearch={handleSearch}
-                    onLogout={handleLogout}
-                    username={username}     
-                />    
-            </Grid>
-            <Grid className="content-container" item lg={11}>
-                <Grid container direction="row" style={{ height: "100%"}}>
-                    <Grid className="left-panel-container" item lg="2.5">
-                        <MyFavouritesPanel style={{ overflowY: "scroll"}}
-                           
-                        ></MyFavouritesPanel>
-                    </Grid>
-                    <Grid className="result-container" item lg="9.5">
-                        <DisplayResults ></DisplayResults>
-                    </Grid>
-                </Grid>
-            </Grid>
+    // Home.jsx (only the return part shown)
+return (
+    <Grid container className="home-container" direction="column" sx={{ height: "100vh" }}>
+      <Grid item xs={12} sx={{ height: "10vh" }}>
+        <Header
+          keyword={keyword}
+          onKeywordChange={setKeyword}
+          onSearch={handleSearch}
+          onLogout={handleLogout}
+          username={username}
+        />
+      </Grid>
+  
+      <Grid item xs sx={{ height: "90vh" }}>
+        <Grid container sx={{ height: "100%" }}>
+          <Grid item xs={12} lg={3} sx={{ height: "100%" }}>
+            <MyFavouritesPanel
+              handleSetKeyword={setKeyword}
+              myFavourites={[]}               // later you’ll pass state
+              clearmyFavourites={() => {}}     // later you’ll pass real handler
+            />
+          </Grid>
+  
+          <Grid item xs={12} lg={9} sx={{ height: "100%" }}>
+            <DisplayResults />
+          </Grid>
         </Grid>
-    );
-}
-
-console.log(Header);  // Should log function, not undefined
-
+      </Grid>
+    </Grid>
+  );
+}  
 
 export default Home;
