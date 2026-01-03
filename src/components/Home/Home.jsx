@@ -6,7 +6,7 @@ import Header from '../Header/Header'
 import axios from 'axios';
 
 const Home = () => {
-    const [keyword, setKeyword] = useState("Olympics");
+    const [keyWord, setKeyword] = useState("Olympics");
     const username = "James";
 
     const myFavourites = [
@@ -48,7 +48,7 @@ return (
     <Grid container className="home-container" direction="column" sx={{ height: "100vh" }}>
       <Grid item xs={12} sx={{ height: "10vh" }}>
         <Header
-          keyword={keyword}
+          keyWord={keyWord}
           onKeywordChange={setKeyword}
           onSearch={handleSearch}
           onLogout={handleLogout}
@@ -68,7 +68,7 @@ return (
   
           <Grid item xs={12} lg={9} sx={{ height: "100%" }}>
           <DisplayResults
-            keyword={keyword}
+            keyWord={keyWord}
           />
           </Grid>
         </Grid>
