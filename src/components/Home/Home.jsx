@@ -3,6 +3,7 @@ import Grid from "@mui/material/Grid";
 import MyFavouritesPanel from "../MyFavouritesPanel/MyFavouritesPanel";
 import DisplayResults from "../DisplayResults/DisplayResults";
 import Header from '../Header/Header'
+import axios from 'axios';
 
 const Home = () => {
     const [keyword, setKeyword] = useState("Olympics");
@@ -66,7 +67,9 @@ return (
           </Grid>
   
           <Grid item xs={12} lg={9} sx={{ height: "100%" }}>
-            <DisplayResults />
+          <DisplayResults
+            keyword={keyword}
+          />
           </Grid>
         </Grid>
       </Grid>
