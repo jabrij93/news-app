@@ -34,10 +34,8 @@ const Home = () => {
           author: "John D. Rock",
           title: "Entertainment Buzz",
         },
-      ];
+    ];
       
-      
-
     const handleSearch = () => {
     };
 
@@ -62,8 +60,8 @@ return (
           <Grid item xs={12} lg={3} sx={{ height: "100%" }}>
             <MyFavouritesPanel
               handleSetKeyword={setKeyword}
-              myFavourites={myFavourites}               // later you’ll pass state
-              clearmyFavourites={() => {}}     // later you’ll pass real handler
+              myFavourites={myFavourites}            
+              clearmyFavourites={() => {}}     
             />
           </Grid>
   

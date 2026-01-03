@@ -115,7 +115,7 @@ const MyFavouritesPanel = ({
             </Typography>
           ) : (
             <List disablePadding>
-              {favourites.map((fav, idx) => {
+              {favourites.map((fav, id) => {
                 const title = fav?.title || "Untitled";
                 const secondary =
                   fav?.source?.name ||
@@ -123,30 +123,11 @@ const MyFavouritesPanel = ({
                   (fav?.publishedAt ? String(fav.publishedAt) : "");
 
                 return (
-                  <Box key={fav?.url || `${title}-${idx}`}>
+                  <Box key={`${id}`}>
                     <ListItemButton onClick={() => handlePickFavourite(fav)}>
                       <ListItemText
                         primary={title}
                         secondary={secondary}
-                        primaryTypographyProps={{
-                          sx: {
-                            color: "#fff",
-                            fontSize: "0.95rem",
-                            display: "-webkit-box",
-                            WebkitLineClamp: 2,
-                            WebkitBoxOrient: "vertical",
-                            overflow: "hidden",
-                          },
-                        }}
-                        secondaryTypographyProps={{
-                          sx: {
-                            color: "rgba(255,255,255,0.75)",
-                            display: "-webkit-box",
-                            WebkitLineClamp: 1,
-                            WebkitBoxOrient: "vertical",
-                            overflow: "hidden",
-                          },
-                        }}
                       />
                     </ListItemButton>
                     <Divider sx={{ borderColor: "rgba(255,255,255,0.08)" }} />
