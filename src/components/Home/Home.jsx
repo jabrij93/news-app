@@ -8,6 +8,36 @@ const Home = () => {
     const [keyword, setKeyword] = useState("Olympics");
     const username = "James";
 
+    const myFavourites = [
+        {
+          source: { id: 1, name: "BBC" },
+          author: "Thomas Smith",
+          title: "News about Olympics",
+        },
+        {
+          source: { id: 2, name: "TechCrunch" },
+          author: "Justin Lee",
+          title: "Tech Innovations",
+        },
+        {
+          source: { id: 3, name: "Healthline" },
+          author: "Jasmine Brown",
+          title: "Health and Wellness",
+        },
+        {
+          source: { id: 4, name: "Al Jazeera" },
+          author: "Smith Johnson",
+          title: "Global Politics",
+        },
+        {
+          source: { id: 5, name: "E! News" },
+          author: "John D. Rock",
+          title: "Entertainment Buzz",
+        },
+      ];
+      
+      
+
     const handleSearch = () => {
     };
 
@@ -32,7 +62,7 @@ return (
           <Grid item xs={12} lg={3} sx={{ height: "100%" }}>
             <MyFavouritesPanel
               handleSetKeyword={setKeyword}
-              myFavourites={[]}               // later you’ll pass state
+              myFavourites={myFavourites}               // later you’ll pass state
               clearmyFavourites={() => {}}     // later you’ll pass real handler
             />
           </Grid>
