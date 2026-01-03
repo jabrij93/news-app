@@ -30,7 +30,7 @@ const Header = ({ keyword, onKeywordChange, onSearch, onLogout, username }) => {
               "& .MuiOutlinedInput-root": {
                 backgroundColor: "white",
                 height: 40,
-                borderRadius: 999, // optional if you want pill like your screenshot
+                borderRadius: 1, 
               },
             }}
           />
@@ -42,20 +42,20 @@ const Header = ({ keyword, onKeywordChange, onSearch, onLogout, username }) => {
         <Button
           variant="contained"
           onClick={onSearch}
-          sx={{ height: 40, px: 2.5, boxShadow: "none", borderRadius: 999, bgcolor: "#f57c00" }}
+          sx={{ height: 40, px: 2.5, boxShadow: "none", borderRadius: 1, bgcolor: "#f57c00" }}
         >
           Search for News
         </Button>
 
         <Chip
           label={username ?? "User"}
-          sx={{ height: 36, borderRadius: 999, bgcolor: "#f57c00", color: "white" }}
+          sx={{ height: 36, width: 80, borderRadius: 999, bgcolor: "#f57c00", color: "white" }}
         />
 
         <Button
           variant="contained"
           onClick={onLogout}
-          sx={{ height: 40, px: 2.5, boxShadow: "none", borderRadius: 999, bgcolor: "#f57c00" }}
+          sx={{ height: 40, px: 2.5, boxShadow: "none", borderRadius: 1, bgcolor: "#f57c00" }}
         >
           Logout
         </Button>
