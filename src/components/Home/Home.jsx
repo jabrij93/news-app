@@ -1,13 +1,29 @@
+import { useState } from "react";
 import Grid from "@mui/material/Grid";
 import MyFavouritesPanel from "../MyFavouritesPanel/MyFavouritesPanel";
 import DisplayResults from "../DisplayResults/DisplayResults";
 import Header from '../Header/Header'
 
 const Home = () => {
+    const [keyword, setKeyword] = useState("Olympics");
+    const username = "James";
+
+    const handleSearch = () => {
+    };
+
+    const handleLogout = () => {
+    };
+
     return (
         <Grid container className="home-container" direction={"column"}>
-            <Grid className="header-container" item lg={1} style={{maxheight: "10vh"}}>
-                <Header></Header>     
+            <Grid className="header-container" item xs={12} sx={{ height: "10vh" }}>
+                <Header
+                    keyword={keyword}
+                    onKeywordChange={setKeyword}
+                    onSearch={handleSearch}
+                    onLogout={handleLogout}
+                    username={username}     
+                />    
             </Grid>
             <Grid className="content-container" item lg={11}>
                 <Grid container direction="row" style={{ height: "100%"}}>

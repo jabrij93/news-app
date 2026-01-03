@@ -1,77 +1,67 @@
-import Grid from "@mui/material/Grid";
-import TextField from "@mui/material/TextField";
-import Button from "@mui/material/Button";
-import Chip from "@mui/material/Chip";
-
+import { Box, TextField, Button, Chip } from "@mui/material";
 
 const Header = ({ keyword, onKeywordChange, onSearch, onLogout, username }) => {
   return (
-    <Grid
-      container
-      alignItems="center"
+    <Box
       sx={{
         height: "10vh",
-        paddingX: 2,
-        background: "linear-gradient(135deg, #ff8c00 0%, #ff4500 100%)",
-        backgroundSize: "cover",
+        minHeight: 64,
+        px: 2,
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "space-between",
+        background: "linear-gradient(90deg, #ff8c00 0%, #ff4500 100%)",
       }}
     >
-      {/* App title on the left */}
-      <Grid item xs="auto" sx={{ mr: 3 }}>
-        <span style={{ color: "white", fontSize: 24, fontWeight: 600 }}>
-          find.My.News :)
-        </span>
-      </Grid>
+      {/* Left */}
+      <Box sx={{ color: "white", fontSize: 26, fontWeight: 600, whiteSpace: "nowrap" }}>
+        find.My.News :)
+      </Box>
 
-      {/* Search box in the middle */}
-      <Grid item xs>
-        <TextField
-          fullWidth
-          variant="outlined"
-          placeholder="Olympics"
-          value={keyword}
-          onChange={(e) => onKeywordChange(e.target.value)}
-          InputProps={{
-            sx: { backgroundColor: "white" },
-          }}
-        />
-      </Grid>
+      {/* Middle (search centered-ish, capped width) */}
+      <Box sx={{ flex: 1, display: "flex", justifyContent: "center", px: 2 }}>
+        <Box sx={{ width: "100%", maxWidth: 900 }}>
+          <TextField
+            fullWidth
+            value={keyword ?? ""}
+            placeholder="Olympics"
+            onChange={(e) => onKeywordChange?.(e.target.value)}
+            sx={{
+              "& .MuiOutlinedInput-root": {
+                backgroundColor: "white",
+                height: 40,
+                borderRadius: 999, // optional if you want pill like your screenshot
+              },
+            }}
+          />
+        </Box>
+      </Box>
 
-      {/* Search button */}
-      <Grid item xs="auto" sx={{ ml: 2 }}>
+      {/* Right (pinned to far right) */}
+      <Box sx={{ display: "flex", alignItems: "center", gap: 1, whiteSpace: "nowrap" }}>
         <Button
           variant="contained"
-          color="warning"
           onClick={onSearch}
-          sx={{ height: 40 }}
+          sx={{ height: 40, px: 2.5, boxShadow: "none", borderRadius: 999, bgcolor: "#f57c00" }}
         >
           Search for News
         </Button>
-      </Grid>
 
-      {/* Username chip */}
-      <Grid item xs="auto" sx={{ ml: 2 }}>
         <Chip
-          color="warning"
-          label={username}
-          sx={{ color: "white", fontWeight: 500 }}
+          label={username ?? "User"}
+          sx={{ height: 36, borderRadius: 999, bgcolor: "#f57c00", color: "white" }}
         />
-      </Grid>
 
-      {/* Logout button */}
-      <Grid item xs="auto" sx={{ ml: 1 }}>
         <Button
           variant="contained"
-          color="warning"
           onClick={onLogout}
-          sx={{ height: 40 }}
+          sx={{ height: 40, px: 2.5, boxShadow: "none", borderRadius: 999, bgcolor: "#f57c00" }}
         >
           Logout
         </Button>
-      </Grid>
-    </Grid>
+      </Box>
+    </Box>
   );
 };
 
 export default Header;
-
