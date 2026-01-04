@@ -66,54 +66,57 @@ export default function NewsItem({ newsObject, updateMyFavourites }) {
 
   return (
     <Card sx={{ height: "100%", position: "relative" }}>
-      <CardActionArea onClick={openArticle} sx={{ height: "100%" }}>
+    <CardActionArea onClick={openArticle} sx={{ height: "100%" }}>
         {imageUrl ? (
-          <CardMedia component="img" height="180" image={imageUrl} alt={title} />
+        <CardMedia component="img" height="180" image={imageUrl} alt={title} />
         ) : (
-          <Box
+        <Box
             sx={{
-              height: 180,
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              bgcolor: "grey.200",
+            height: 180,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            bgcolor: "grey.200",
             }}
-          >
+        >
             <Typography variant="body2" color="text.secondary">
-              No Image
+            No Image
             </Typography>
-          </Box>
+        </Box>
         )}
 
         <CardContent>
-          <Typography variant="subtitle1" sx={{ fontWeight: 600 }}>
+        <Typography variant="subtitle1" sx={{ fontWeight: 600 }}>
             {sourceName}
-          </Typography>
+        </Typography>
 
-          <Typography variant="caption" color="text.secondary" display="block" sx={{ mb: 1 }}>
-            {publishedTime}
-          </Typography>
-
-          <Typography variant="body2" color="text.primary">
-            {title}
-          </Typography>
-        </CardContent>
-
-        {/* Favourite button (bottom-left like your screenshot) */}
-        <IconButton
-          onClick={addToFavourites}
-          aria-label="Add to favourites"
-          sx={{
-            position: "absolute",
-            left: 8,
-            bottom: 8,
-            bgcolor: "white",
-            "&:hover": { bgcolor: "grey.100" },
-          }}
+        <Typography
+            variant="caption"
+            color="text.secondary"
+            display="block"
+            sx={{ mb: 1 }}
         >
-          <FavoriteIcon sx={{ color: "#f57c00" }} />
-        </IconButton>
-      </CardActionArea>
+            {publishedTime}
+        </Typography>
+
+        <Typography variant="body2">{title}</Typography>
+        </CardContent>
+    </CardActionArea>
+
+    {/* ✅ OUTSIDE CardActionArea */}
+    <IconButton
+        onClick={addToFavourites}
+        aria-label="Add to favourites"
+        sx={{
+        position: "absolute",
+        left: 8,
+        bottom: 8,
+        bgcolor: "white",
+        "&:hover": { bgcolor: "grey.100" },
+        }}
+    >
+        <FavoriteIcon sx={{ color: "#f57c00" }} />
+    </IconButton>
     </Card>
   );
 }
