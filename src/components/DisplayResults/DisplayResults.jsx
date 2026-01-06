@@ -3,6 +3,7 @@ import Grid from "@mui/material/Grid";
 import { Button, LinearProgress, Box } from "@mui/material";
 import NewsItem from "../NewsItem/NewsItem";
 import api from "../../api/news";
+
 // You can tweak this if you want
 const PAGE_SIZE = 20;
 
