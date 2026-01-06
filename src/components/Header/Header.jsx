@@ -4,7 +4,6 @@ const Header = ({ keyword, onKeywordChange, onSearch, onLogout, username }) => {
   return (
     <Box
       sx={{
-        height: "10vh",
         minHeight: 64,
         px: 2,
         display: "flex",
