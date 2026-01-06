@@ -52,7 +52,6 @@ const Home = ({ page, keywords }) => {
     const username = "James";
 
     
-
     const myFavourites = [
         {
           source: { id: 1, name: "BBC" },
@@ -110,14 +109,14 @@ const Home = ({ page, keywords }) => {
           <Grid item sx={{ flex: 1, minHeight: 0 }}>
             <Grid
               container
-              wrap="nowrap"                 // ✅ prevent sidebar/main from wrapping
+              wrap="nowrap"                 
               sx={{ height: "100%" }}
             >
               {/* Sidebar */}
               <Grid
                 item
                 sx={{
-                  width: { xs: "100%", lg: 320 },  // ✅ fixed width on large screens
+                  width: { xs: "100%", lg: 320 }, 
                   flexShrink: 0,
                   height: "100%",
                   overflowY: "auto",
@@ -125,7 +124,7 @@ const Home = ({ page, keywords }) => {
               >
                 <MyFavouritesPanel
                   handleSetKeyword={setKeyword}
-                  myFavourites={myFavourites}
+                  myFavourites={news}
                   clearmyFavourites={() => {}}
                 />
               </Grid>
