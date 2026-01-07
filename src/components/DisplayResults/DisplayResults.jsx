@@ -2,48 +2,59 @@ import React, { useEffect, useState } from "react";
 import Grid from "@mui/material/Grid";
 import { Button, LinearProgress, Box } from "@mui/material";
 import NewsItem from "../NewsItem/NewsItem";
-import api from "../../api/news";
 
-const TOTAL_NEWS = 10;
+const CHUNK_SIZE = 10;
 
 export default function DisplayResults(props) {
-  const { keyWord, page, updateMyFavourites, news = [] } = props;
+  const { keyWord, news = [], updateMyFavourites, isLoading, hasMore, onLoadMore } = props;
 
-  // Required state vars
-  const [isLoading, setIsLoading] = useState(false);
+  const [visibleCount, setVisibleCount] = useState(CHUNK_SIZE);
 
-  // show only 10 news initially
-  const [visibleNews, setVisibleNews] = useState(TOTAL_NEWS);
-
-  // reset back to 10 whenever a new search result comes in
+  // reset shown count when keyword changes / new search results
   useEffect(() => {
-    setVisibleNews(TOTAL_NEWS);
-  }, [keyWord, news]);
+    setVisibleCount(CHUNK_SIZE);
+  }, [keyWord]);
 
-  const displayedNews = news.slice(0, visibleNews);
-  const hasMoreToShow = visibleNews < news.length;
+  // if new items were appended, auto-expand to include them (optional but nice)
+  useEffect(() => {
+    setVisibleCount((c) => Math.min(Math.max(c, CHUNK_SIZE), news.length));
+  }, [news.length]);
+
+  const handleClick = async () => {
+    // reveal hidden already-fetched items first
+    if (visibleCount < news.length) {
+      setVisibleCount((c) => Math.min(c + CHUNK_SIZE, news.length));
+      return;
+    }
+
+    // otherwise fetch next page
+    if (hasMore && onLoadMore) {
+      await onLoadMore();
+      // after load, we’ll reveal the next chunk when news updates
+    }
+  };
+
+  const visibleNews = news.slice(0, visibleCount);
+
+  // show button if: there are hidden items OR API has more
+  const showButton = visibleCount < news.length || hasMore;
 
   return (
     <Box sx={{ width: "100%" }}>
       {isLoading && <LinearProgress />}
 
       <Grid container spacing={2} alignItems="stretch" justifyContent="space-evenly">
-        {displayedNews.map((article, idx) => (
+        {visibleNews.map((article, idx) => (
           <Grid item xs={12} sm={6} md={4} lg={3} key={article.url || idx} sx={{ display: "flex" }}>
             <NewsItem news={article} updateMyFavourites={updateMyFavourites} />
           </Grid>
         ))}
       </Grid>
 
-      {hasMoreToShow && (
+      {showButton && (
         <Box sx={{ display: "flex", justifyContent: "center", mt: 2 }}>
-          <Button
-            variant="contained"
-            onClick={() =>
-              setVisibleNews((c) => Math.min(c + TOTAL_NEWS, news.length))
-            }
-          >
-            Load More
+          <Button variant="contained" onClick={handleClick} disabled={isLoading}>
+            {isLoading ? "Loading..." : "Load More"}
           </Button>
         </Box>
       )}

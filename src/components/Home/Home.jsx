@@ -8,77 +8,69 @@ import axios from 'axios';
 
 const API_KEY = process.env.REACT_APP_NEWS_API_KEY;
 console.log('NEWSAPI', API_KEY); 
+const PAGE_SIZE = 10;
 
 const Home = ({ page, keywords }) => {
-
     const [keyWord, setKeyword] = useState("Olympics");
     const [news, setNews] = useState([]);
-
     const [isLoading, setIsLoading] = useState(false);
 
     // Track which page DisplayResults has currently loaded up to
-    const [currentPage, setCurrentPage] = useState(page || 1);
+    const [currentPage, setCurrentPage] = useState(1);
+
+    // whether there might be more results
+    const [hasMore, setHasMore] = useState(true);
     
-    const fetchData = async () => {
+    const fetchData = async (page, replace = false) => {
         try {
           setIsLoading(true);
-      
+    
           const response = await api.get("/everything", {
             params: {
               q: keyWord,
-              page: currentPage,
-              pageSize: 20,
+              page,
+              pageSize: PAGE_SIZE,
               apiKey: API_KEY,
               sortBy: "publishedAt",
               language: "en",
               searchIn: "title",
             },
           });
-      
-          setNews(response.data.articles);
+    
+          const newArticles = response?.data?.articles ?? [];
+    
+          if (replace) {
+            setNews(newArticles);
+          } else {
+            setNews((prev) => [...prev, ...newArticles]);
+          }
+    
+          if (newArticles.length < PAGE_SIZE) {
+            setHasMore(false);
+          }
         } catch (error) {
           console.error("News fetch failed:", error);
+          setHasMore(false);
         } finally {
           setIsLoading(false);
         }
       };
       
+      // initial load + when keyword changes
       useEffect(() => {
-        fetchData();
-      }, []);
+        setCurrentPage(1);
+        setHasMore(true);
+        fetchData(1, true);
+      }, [keyWord]);
     
-      console.log("fetched News", news)
+      const handleLoadMore = async () => {
+        if (isLoading || !hasMore) return;
+        const nextPage = currentPage + 1;
+        await fetchData(nextPage);
+        setCurrentPage(nextPage);
+      };
     
     const username = "James";
-
-    
-    const myFavourites = [
-        {
-          source: { id: 1, name: "BBC" },
-          author: "Thomas Smith",
-          title: "News about Olympics",
-        },
-        {
-          source: { id: 2, name: "TechCrunch" },
-          author: "Justin Lee",
-          title: "Tech Innovations",
-        },
-        {
-          source: { id: 3, name: "Healthline" },
-          author: "Jasmine Brown",
-          title: "Health and Wellness",
-        },
-        {
-          source: { id: 4, name: "Al Jazeera" },
-          author: "Smith Johnson",
-          title: "Global Politics",
-        },
-        {
-          source: { id: 5, name: "E! News" },
-          author: "John D. Rock",
-          title: "Entertainment Buzz",
-        },
-    ];
       
     const handleSearch = () => {
     };
@@ -140,7 +132,13 @@ const Home = ({ page, keywords }) => {
                   padding: 2,
                 }}
               >
-                <DisplayResults keyWord={keyWord} news={news} />
+                <DisplayResults 
+                    keyWord={keyWord}
+                    news={news}
+                    isLoading={isLoading}
+                    hasMore={hasMore}
+                    onLoadMore={handleLoadMore}
+                />
               </Grid>
             </Grid>
           </Grid>
