@@ -31,6 +31,7 @@ export default function DisplayResults(props) {
     if (hasMore && onLoadMore) {
       await onLoadMore();
       // after load, we’ll reveal the next chunk when news updates
+      setVisibleCount((c) => c + CHUNK_SIZE);
     }
   };
 
