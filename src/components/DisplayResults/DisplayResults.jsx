@@ -20,7 +20,7 @@ export default function DisplayResults(props) {
     <Box sx={{ width: "100%" }}>
       {isLoading && <LinearProgress />}
 
-      <Grid container spacing={2} alignItems="stretch">
+      <Grid container spacing={2} alignItems="stretch" justifyContent="space-evenly">
         {news.map((article, idx) => (
           <Grid item xs={12} sm={6} md={4} lg={3} key={article.url || idx} sx={{ display: "flex" }}>
             <NewsItem news={article} updateMyFavourites={updateMyFavourites} />

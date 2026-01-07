@@ -21,7 +21,7 @@ function safeParseArray(value) {
 
 function formatPublishedAt(publishedAt) {
   if (!publishedAt) return "";
-  
+
   const d = new Date(publishedAt);
   if (Number.isNaN(d.getTime())) return publishedAt;
   return d.toLocaleString();
@@ -72,7 +72,7 @@ export default function NewsItem({ news, updateMyFavourites }) {
             display: "flex",
             flexDirection: "column",
             position: "relative",
-            width: 200,
+            width: 275,
         }}
     >
       <CardActionArea
