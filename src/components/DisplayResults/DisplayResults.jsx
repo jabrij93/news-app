@@ -40,6 +40,15 @@ export default function DisplayResults(props) {
   // show button if: there are hidden items OR API has more
   const showButton = visibleCount < news.length || hasMore;
 
+  console.log("DisplayResults:", {
+    newsLen: news.length,
+    visibleCount,
+    hasMore,
+    isLoading,
+    showButton: (visibleCount < news.length || hasMore),
+  });
+  
+
   return (
     <Box sx={{ width: "100%" }}>
       {isLoading && <LinearProgress />}

@@ -8,7 +8,7 @@ import axios from 'axios';
 
 const API_KEY = process.env.REACT_APP_NEWS_API_KEY;
 console.log('NEWSAPI', API_KEY); 
-const PAGE_SIZE = 10;
+const PAGE_SIZE = 20;
 
 const Home = ({ page, keywords }) => {
     const [keyWord, setKeyword] = useState("Olympics");
@@ -24,7 +24,7 @@ const Home = ({ page, keywords }) => {
     const fetchData = async (page, replace = false) => {
         try {
           setIsLoading(true);
-    
+      
           const response = await api.get("/everything", {
             params: {
               q: keyWord,
@@ -36,17 +36,17 @@ const Home = ({ page, keywords }) => {
               searchIn: "title",
             },
           });
-    
+      
           const newArticles = response?.data?.articles ?? [];
-    
+          const total = response?.data?.totalResults ?? 0;
+      
           if (replace) {
             setNews(newArticles);
+            setHasMore(page * PAGE_SIZE < total); // usually page=1 here
           } else {
             setNews((prev) => [...prev, ...newArticles]);
-          }
-    
-          if (newArticles.length < PAGE_SIZE) {
-            setHasMore(false);
+            // IMPORTANT: this still uses totalResults, not newArticles.length
+            setHasMore(page * PAGE_SIZE < total);
           }
         } catch (error) {
           console.error("News fetch failed:", error);
@@ -54,7 +54,7 @@ const Home = ({ page, keywords }) => {
         } finally {
           setIsLoading(false);
         }
-      };
+      };      
       
       // initial load + when keyword changes
       useEffect(() => {
